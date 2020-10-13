@@ -3,36 +3,42 @@ package ru.javawebinar.topjava.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Random;
 
 @Getter
 @Setter
 public class Meal {
-    private String id;
+    private Integer id;
 
-    private LocalDateTime dateTime;
+    private final LocalDateTime dateTime;
 
-    private String description;
+    private final String description;
 
-    private int calories;
+    private final int calories;
 
     public Meal(LocalDateTime dateTime, String description, int calories) {
-        this.id = generateId();
-        this.dateTime = dateTime;
-        this.description = description;
-        this.calories = calories;
+        this(null, dateTime, description, calories);
     }
 
-    public Meal(String id, LocalDateTime dateTime, String description, int calories) {
+    public Meal(Integer id, LocalDateTime dateTime, String description, int calories) {
         this.id = id;
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
     }
 
-    private String generateId() {
-        Random random = new Random();
-        return String.valueOf(random.nextInt());
+    public LocalDate getDate() {
+        return dateTime.toLocalDate();
+    }
+
+    public LocalTime getTime() {
+        return dateTime.toLocalTime();
+    }
+
+    public boolean isNew() {
+        return id == null;
     }
 }
